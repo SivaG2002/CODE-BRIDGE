@@ -1,0 +1,32 @@
+
+    digraph xtext {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+1878867557232 -> 1878867556224 [label="instruction:0" arrowtail=diamond dir=both]
+1878867556224 -> 1878867555104 [label="Calculation_instruction:0" arrowtail=diamond dir=both]
+1878867555104 -> 1878867557736 [label="variable_op1" arrowtail=diamond dir=both]
+1878867557736[label="{:Variable_op1|+var_op1:str='a'\l}"]
+1878867555104 -> 1878867554712 [label="right:0" arrowtail=diamond dir=both]
+1878867554712 -> 1878867483672 [label="variable_op1" arrowtail=diamond dir=both]
+1878867483672[label="{:Variable_op1|+var_op1:str='b'\l}"]
+1878867554712 -> 1878867482832 [label="right:0" arrowtail=diamond dir=both]
+1878867482832 -> 1878867483112 [label="variable_op1" arrowtail=diamond dir=both]
+1878867483112[label="{:Variable_op1|+var_op1:str='g'\l}"]
+1878867482832 -> 1878867483224 [label="right:0" arrowtail=diamond dir=both]
+1878867483224[label="{:Variable_op2|+var_op2:str='t'\l}"]
+1878867482832[label="{:Calculation_instruction|+calculation:str='plus'\l}"]
+1878867554712[label="{:Calculation_instruction|+calculation:str='plus'\l}"]
+1878867555104[label="{:Calculation_instruction|+calculation:str='plus'\l}"]
+1878867556224[label="{:Calculation_ins|}"]
+1878867557232[label="{:Rule_pseudo|}"]
+
+}

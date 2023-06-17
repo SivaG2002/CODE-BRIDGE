@@ -1,0 +1,151 @@
+
+    digraph xtext {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+1878863203720 -> 1878863179176[arrowtail=diamond, dir=both, headlabel="instruction 0..*"]
+1878863203720[ label="{Rule_pseudo|}"]
+
+1878863179176[ label="{*Instruction|}"]
+1878863179176 -> 1878863206552 [dir=back]
+1878863179176 -> 1878863197112 [dir=back]
+1878863179176 -> 1878863185784 [dir=back]
+
+1878863206552[ label="{*IO_instructions|}"]
+1878863206552 -> 1878863231096 [dir=back]
+1878863206552 -> 1878863542040 [dir=back]
+
+1878863185784[ label="{*Conditions|}"]
+1878863185784 -> 1878863217880 [dir=back]
+1878863185784 -> 1878863232984 [dir=back]
+1878863185784 -> 1878863196168 [dir=back]
+1878863185784 -> 1878863180120 [dir=back]
+1878863185784 -> 1878863219768 [dir=back]
+
+1878863197112[ label="{*Expression_instruction|}"]
+1878863197112 -> 1878863190504 [dir=back]
+1878863197112 -> 1878863208440 [dir=back]
+1878863197112 -> 1878863212216 [dir=back]
+
+1878863190504 -> 1878863191448[arrowtail=diamond, dir=both, headlabel="Calculation_instruction 1..*"]
+1878863190504[ label="{Calculation_ins|}"]
+
+1878863191448 -> 1878863529768[arrowtail=diamond, dir=both, headlabel="variable_op1 "]
+1878863191448[ label="{Calculation_instruction|+calculation:Calculation\l+right:list[OBJECT]\l}"]
+
+1878863208440 -> 1878863529768[arrowtail=diamond, dir=both, headlabel="variable_op1 "]
+1878863208440[ label="{Condition_instruction|+operator:Operator\l+right:list[OBJECT]\l}"]
+
+1878863212216 -> 1878863214104[arrowtail=diamond, dir=both, headlabel="Assignment_instruction 1..*"]
+1878863212216[ label="{Assignment_ins|}"]
+
+1878863214104 -> 1878863529768[arrowtail=diamond, dir=both, headlabel="variable_op1 "]
+1878863214104[ label="{Assignment_instruction|+assignment:Assignment\l+right:list[OBJECT]\l}"]
+
+1878863217880 -> 1878863208440[arrowtail=diamond, dir=both, headlabel="condition_instruction "]
+1878863217880[ label="{If_instruction|}"]
+
+1878863232984 -> 1878863208440[arrowtail=diamond, dir=both, headlabel="condition_instruction "]
+1878863232984[ label="{Elif_instruction|}"]
+
+1878863236760[ label="{Instruction_else|else \\s*}"]
+
+1878863221656[ label="{Instruction_endif|endif \\n*}"]
+
+1878863196168 -> 1878863208440[arrowtail=diamond, dir=both, headlabel="condition_instruction "]
+1878863196168[ label="{While_instruction|}"]
+
+1878863187672[ label="{Instruction_endwhile|endwhile \\n*}"]
+
+1878863180120 -> 1878863529768[arrowtail=diamond, dir=both, headlabel="variable_op1 "]
+1878863180120 -> 1878863542984[arrowtail=diamond, dir=both, headlabel="variable_op2 "]
+1878863180120[ label="{For_instruction_startline_1|}"]
+
+1878863219768 -> 1878863529768[arrowtail=diamond, dir=both, headlabel="variable_op1 "]
+1878863219768 -> 1878863542984[arrowtail=diamond, dir=both, headlabel="variable_op2 "]
+1878863219768[ label="{For_instruction_startline_2|}"]
+
+1878863234872[ label="{For_instruction_endline|end for \\n*}"]
+
+1878863231096[ label="{*Declare|}"]
+1878863231096 -> 1878863224488 [dir=back]
+1878863231096 -> 1878863228264 [dir=back]
+1878863231096 -> 1878863230152 [dir=back]
+1878863231096 -> 1878863536376 [dir=back]
+
+1878863224488 -> 1878857838968[arrowtail=diamond, dir=both, headlabel="variable "]
+1878863224488[ label="{Declare_variable|}"]
+
+1878863228264 -> 1878857838968[arrowtail=diamond, dir=both, headlabel="variable "]
+1878863228264 -> 1878857830472[arrowtail=diamond, dir=both, headlabel="value "]
+1878863228264[ label="{Declare_value|}"]
+
+1878863230152 -> 1878857838968[arrowtail=diamond, dir=both, headlabel="variable "]
+1878863230152[ label="{Declare_list|}"]
+
+1878863240536[ label="{List_variables|+list_var:ID\l}"]
+
+1878857838968[ label="{Variable|+var:OBJECT\l}"]
+
+1878857830472[ label="{Value|+val:OBJECT\l}"]
+
+1878863547704[ label="{*Print|}"]
+1878863547704 -> 1878863542040 [dir=back]
+
+1878863542040 -> 1878863524104[arrowtail=diamond, dir=both, headlabel="content_string "]
+1878863542040[ label="{Print_string|}"]
+
+1878863524104[ label="{Content_string|+con:STRING\l}"]
+
+1878863536376 -> 1878857838968[arrowtail=diamond, dir=both, headlabel="variable "]
+1878863536376[ label="{Print_variable|}"]
+
+1878863523160[ label="{Operator|}"]
+
+1878863544872[ label="{Calculation|plus\|minus\|multiply\|divide\|power}"]
+
+1878863531656[ label="{Comparasion|is greater than\|is lower than\|is greater or equal\|is less or equal\|is equal to\|is not equal to}"]
+
+1878863540152[ label="{Logic|and\|or\|not}"]
+
+1878863548648[ label="{Assignment|=}"]
+
+1878863529768[ label="{Variable_op1|+var_op1:OBJECT\l}"]
+
+1878863542984[ label="{Variable_op2|+var_op2:OBJECT\l}"]
+
+1878863520328[ label="{Comment|\\/\\/.*$}"]
+
+1878857831416[ label="{ID|}"]
+
+1878857832360[ label="{STRING|}"]
+
+1878857840856[ label="{BOOL|}"]
+
+1878863184840[ label="{INT|}"]
+
+1878863209384[ label="{FLOAT|}"]
+
+1878863195224[ label="{NUMBER|}"]
+1878863195224 -> 1878863209384 [dir=back]
+1878863195224 -> 1878863184840 [dir=back]
+
+1878863188616[ label="{BASETYPE|}"]
+1878863188616 -> 1878863195224 [dir=back]
+1878863188616 -> 1878857840856 [dir=back]
+1878863188616 -> 1878857831416 [dir=back]
+1878863188616 -> 1878857832360 [dir=back]
+
+1878863182952[ label="{*OBJECT|}"]
+1878863182952 -> 1878863188616 [dir=back]
+
+
+}

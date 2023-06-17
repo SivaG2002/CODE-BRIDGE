@@ -1,0 +1,201 @@
+Rule_pseudo:
+
+    instruction *= Instruction
+;
+//base instruction from where every instruction starts
+Instruction:
+    (IO_instructions | Expression_instruction | Conditions)
+;
+
+//All the conditions for the grammar are defined here
+IO_instructions:
+    Declare | Print
+;
+
+Conditions:
+ If_instruction | Elif_instruction | Instruction_else | Instruction_endif | While_instruction |Instruction_endwhile |For_instruction_startline_1 |For_instruction_startline_2| For_instruction_endline
+;
+
+Expression_instruction:
+
+Calculation_ins | Condition_instruction |Assignment_ins
+
+;
+//The minor instructions which constitute the meta class "Expression_instruction"
+
+Calculation_ins:
+/\s*/
+Calculation_instruction +=Calculation_instruction[eolterm]
+
+//adding an end of line to indicate the termination of the line for the parser
+;
+
+Calculation_instruction:
+
+(variable_op1=Variable_op1) //for the binary instructions like a+b with right recursion tree
+calculation=Calculation
+(right=Calculation_instruction)? //'?' to indicate the optional arguments to the parser. it can occour either 0 or 1 time
+(right=Variable_op2)?
+
+;
+
+Condition_instruction:
+(variable_op1=Variable_op1) //for the binary instructions like a+b with right recursion tree
+operator =Operator
+(right=Condition_instruction)? //'?' to indicate the optional arguments to the parser. it can occour either 0 or 1 time
+(right=Variable_op2)?
+
+//A conditional instruction to specify the conditional expressions for the grammar
+;
+
+
+Assignment_ins:
+
+/\s*/
+Assignment_instruction +=Assignment_instruction[eolterm]
+;
+
+Assignment_instruction:
+
+(variable_op1=Variable_op1)
+assignment=Assignment
+(right=Expression_instruction)?
+(right=Variable_op2)?
+;
+
+// the grammar for expressions like a= a+b
+If_instruction:
+'if'
+condition_instruction=Condition_instruction //the if expression consists a 'if' keyword and followed nby the if instruction which is a refernce to a condition_instruction
+;
+
+Elif_instruction:
+'elif'
+condition_instruction = Condition_instruction
+;
+
+Instruction_else:
+'else' /\s*/
+; //else for specifying  a else condition
+
+Instruction_endif:
+    'endif' /\n*/
+; //for ending the if statement
+While_instruction:
+'while'
+condition_instruction=Condition_instruction
+ //the while expression consists a 'while' keyword and followed nby the if instruction which is a refernce to a condition_instruction
+;
+
+Instruction_endwhile:
+    'endwhile' /\n*/
+;
+//for ending the while instruction
+
+For_instruction_startline_1:
+    'for'
+    variable_op1=Variable_op1
+    'in'
+    variable_op2=Variable_op2
+    'do'
+
+//for instruction starts with a keyword 'for' keyword and followed by the variable
+;
+
+For_instruction_startline_2:
+    'for'
+variable_op1=Variable_op1
+    'in range'
+variable_op2=Variable_op2
+    'do'
+;
+
+For_instruction_endline:
+    'end for'/\n*/
+;
+Declare:
+    Declare_variable | Declare_value | Declare_list |Print_variable //consits of all the declarations and a variable printing
+;
+Declare_variable:
+    'declare' /\s*/ variable = Variable /\n*/ //used by the keyword 'declare' and followed by the variable declarations
+;
+Declare_value:
+    variable = Variable /\s*/ 'equal' /\s*/ value = Value /\n*/   //This instruction is used to assign a variable to a value
+;
+Declare_list:
+    'list' /\s*/ variable = Variable  //this is used to declare a list for a for loop because for works with list and ranges
+;
+List_variables:
+    list_var = ID /the variables contained in a list /
+;
+Variable:
+    var = ID |  var = INT  //the type which a variable can take during the declarations and printing
+;
+Value:
+    val = ID | val = INT  //the type which a value can take during the Assignment
+;
+
+Print:
+    Print_string   //for printing strings and words
+;
+Print_string:
+    'print' /\s*/  content_string = Content_string ; //print keyword followed by a string input
+
+Content_string:
+    con = STRING /\s*/
+;
+
+Print_variable:
+
+'print' /\s*/ variable = Variable
+;
+
+Operator:
+Calculation | Comparasion | Logic
+
+;
+
+Calculation:
+    ('plus' | 'minus' | 'multiply' | 'divide' | 'power')
+
+    //all the operators used in calculation
+;
+
+
+Comparasion:
+    'is greater than' | 'is lower than' | 'is greater or equal' | 'is less or equal' | 'is equal to' | 'is not equal to'
+;
+
+//all the comparison operators used in the grammar
+
+Logic:
+    'and' | 'or' | 'not'
+;
+
+//all the logic operators used in the grammar
+
+
+Assignment:
+
+'='
+;
+
+//the "=" operators used for equating the variables
+
+
+
+Variable_op1:
+    (var_op1 = ID | var_op1 =INT)
+;
+
+Variable_op2:
+    (var_op2 = ID | var_op2= INT)
+;
+
+//the variables used in all the expressions
+
+Comment:
+  /\/\/.*$/
+
+  //regular expression for defining comments
+;
